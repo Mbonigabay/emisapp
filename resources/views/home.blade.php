@@ -14,7 +14,7 @@
                         <div class="col-7 col-md-8">
                             <div class="numbers">
                                 <p class="card-category">Employees</p>
-                                <p class="card-title">10
+                                <p class="card-title">{{ $client }}
                                 </p>
                                 <p>
                                 </p>

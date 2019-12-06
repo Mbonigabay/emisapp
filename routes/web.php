@@ -30,3 +30,5 @@ Route::get('/expense', 'ExpenseController@index');
 Route::get('/income', 'IncomeController@index');
 
 Route::get('/project', 'ProjectController@index');
+
+Route::get('/payroll', 'PayRollController@index');

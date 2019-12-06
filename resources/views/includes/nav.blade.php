@@ -10,7 +10,23 @@
                     <span class="navbar-toggler-bar bar3"></span>
                 </button>
             </div>
-            <a class="navbar-brand" href="#pablo">Dashboard</a>
+            <a class="navbar-brand" href="#pablo">
+                @if ( Request::is('home'))
+                Dashboard
+                @elseif ( Request::is('expense*'))
+                Expense
+                @elseif ( Request::is('income*'))
+                Income
+                @elseif ( Request::is('project*'))
+                Project
+                @elseif ( Request::is('employee*'))
+                Employee
+                @elseif ( Request::is('payroll*'))
+                Payroll
+                @elseif ( Request::is('client*'))
+                Client
+                @endif
+            </a>
         </div>
 
 
