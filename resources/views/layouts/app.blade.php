@@ -18,7 +18,6 @@
     <script src="{{ asset('js/template/paper-dashboard.min.js') }}" defer></script>
     <script src="{{ asset('js/template/core/popper.min.js') }}" defer></script>
     <script src="{{ asset('js/template/plugins/bootstrap-notify.js') }}" defer></script>
-    <script src="{{ asset('js/template/plugins/chartjs.min.js') }}" defer></script>
     <script src="{{ asset('js/template/plugins/perfect-scrollbar.jquery.min.js') }}" defer></script>
 
 
@@ -26,15 +25,17 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}" />
     <link href="{{ asset('css/themify-icons.css') }}" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link href="{{ asset('css/data-tables.css') }}" rel="stylesheet" >
+    {{-- <link href="{{ asset('css/coming-sssoon.css') }}"  rel="stylesheet" > --}}
 
     <!-- Material Kit CSS -->
     <link href="{{ asset('css/paper-dashboard.css') }}" rel="stylesheet" />
+    
 
 </head>
 
@@ -54,6 +55,9 @@
         </div>
     </div>
     @yield('scripts')
+
+    <script src="{{ asset('js/template/plugins/chartjs.min.js') }}" ></script>
+    {!! $chart->script() !!}
 </body>
 
 </html>

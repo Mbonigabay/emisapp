@@ -17,18 +17,24 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth'])->group(function () {
 
-Route::get('users', 'HomeController@getUsers')->name('get.users');
+    Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/client', 'ClientController@index');
+    Route::get('/client', 'ClientController@index');
+    Route::post('/client', 'ClientController@store');
 
-Route::get('/employee', 'EmployeeController@index');
+    Route::get('/employee', 'EmployeeController@index');
+    Route::post('/employee', 'EmployeeController@store');
 
-Route::get('/expense', 'ExpenseController@index');
+    Route::get('/expense', 'ExpenseController@index');
 
-Route::get('/income', 'IncomeController@index');
+    Route::get('/income', 'IncomeController@index');
 
-Route::get('/project', 'ProjectController@index');
+    Route::get('/project', 'ProjectController@index');
 
-Route::get('/payroll', 'PayRollController@index');
+    Route::get('/payroll', 'PayRollController@index');
+
+    Route::get('/dt/employees', 'DataTablesController@getEmployees')->name('get.employees');
+    Route::get('/dt/clients', 'DataTablesController@getClients')->name('get.clients');
+});

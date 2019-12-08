@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\User;
-use App\Client;
-use Yajra\Datatables\Datatables;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
+use App\Charts\LatestEmployee;
+use App\Employee;
 
 class HomeController extends Controller
 {
@@ -28,13 +24,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $client = Client::all()->sum('tel_no');
-        return view('home', compact('client'));
-    }
+        $employees = Employee::all();
 
-    public function getUsers()
-    {
-        return DataTables::of(User::query())->make(true);
 
+        $today_users = Employee::whereDate('created_at', today())->count();
+        $yesterday_users = Employee::whereDate('created_at', today()->subDays(1))->count();
+        $users_2_days_ago = Employee::whereDate('created_at', today()->subDays(2))->count();
+
+        $chart = new LatestEmployee;
+        $chart->labels(['2 days ago', 'Yesterday', 'Today']);
+        $chart->dataset('My dataset', 'line', [$users_2_days_ago, $yesterday_users, $today_users])->color('#000');
+
+        // $chart = new LatestEmployee;
+        // $chart->labels(['One', 'Two', 'Three']);
+        // $chart->dataset('My dataset 1', 'bar', [1, 2, 3])->color('#000');
+
+
+        return view('home', compact('employees', 'chart'));
     }
 }

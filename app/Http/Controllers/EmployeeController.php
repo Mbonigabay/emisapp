@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
+use Validator;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -34,7 +36,33 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'telNo' => 'required',
+            'nid' => 'required',
+            'position' => 'required',
+        ]);
+
+        if ($validator->passes()) {
+
+                $employee = Employee::create([
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                    'address' => $request->input('address'),
+                    'tel_no' => $request->input('telNo'),
+                    'nid' => $request->input('nid'),
+                    'position' => $request->input('position'),
+                ]);
+                if ($employee) {
+                    return redirect()->back()
+            ->with('success', 'Employee saved successful');
+                }
+
+                return redirect()->back()
+                ->with('error', 'Error');
+            }
     }
 
     /**
