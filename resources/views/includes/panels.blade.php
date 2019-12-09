@@ -1,4 +1,5 @@
 <div class="row">
+         {{-- Employees --}}
         <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
                 <div class="card-body ">
@@ -11,7 +12,7 @@
                         <div class="col-7 col-md-8">
                             <div class="numbers">
                                 <p class="card-category">Employees</p>
-                                <p class="card-title">10
+                                <p class="card-title"> {{$nbr_employees}}
                                 </p>
                                 <p>
                                 </p>
@@ -27,6 +28,8 @@
                 </div>
             </div>
         </div>
+
+        {{-- Sum of Income --}}
         <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
                 <div class="card-body ">
@@ -39,7 +42,7 @@
                         <div class="col-7 col-md-8">
                             <div class="numbers">
                                 <p class="card-category">Revenue</p>
-                                <p class="card-title">$ 1,345
+                                <p class="card-title">$ {{$sum_incomes}}
                                 </p>
                                 <p>
                                 </p>
@@ -55,6 +58,8 @@
                 </div>
             </div>
         </div>
+
+        {{-- Sum of Expense --}}
         <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
                 <div class="card-body ">
@@ -67,7 +72,7 @@
                         <div class="col-7 col-md-8">
                             <div class="numbers">
                                 <p class="card-category">Expenses</p>
-                                <p class="card-title">2300
+                                <p class="card-title">$ {{$sum_expenses}}
                                 </p>
                                 <p>
                                 </p>
@@ -83,6 +88,8 @@
                 </div>
             </div>
         </div>
+
+        {{-- Projects --}}
         <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
                 <div class="card-body ">
@@ -95,7 +102,7 @@
                         <div class="col-7 col-md-8">
                             <div class="numbers">
                                 <p class="card-category">Projects</p>
-                                <p class="card-title">3
+                                <p class="card-title">{{$nbr_projects}}
                                 </p>
                                 <p>
                                 </p>
@@ -112,3 +119,4 @@
             </div>
         </div>
     </div>
+    

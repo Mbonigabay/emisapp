@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Expense;
+use App\Income;
+use App\Project;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -15,7 +18,12 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('employee.index');
+        $nbr_employees = Employee::all()->count();
+        $nbr_projects = Project::all()->count();
+        $sum_expenses = Expense::all()->sum('balance');
+        $sum_incomes = Income::all()->sum('balance');
+
+        return view('employee.index', compact('nbr_employees', 'nbr_projects', 'sum_expenses', 'sum_incomes'));
     }
 
     /**

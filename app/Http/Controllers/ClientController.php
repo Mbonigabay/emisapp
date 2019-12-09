@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Employee;
+use App\Expense;
+use App\Income;
+use App\Project;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -15,7 +19,12 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('client.index');
+        $nbr_employees = Employee::all()->count();
+        $nbr_projects = Project::all()->count();
+        $sum_expenses = Expense::all()->sum('balance');
+        $sum_incomes = Income::all()->sum('balance');
+
+        return view('client.index', compact('nbr_employees', 'nbr_projects', 'sum_expenses', 'sum_incomes'));
     }
 
     /**

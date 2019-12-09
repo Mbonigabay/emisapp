@@ -16,6 +16,6 @@ class Income extends Model
 
     public function client()
     {
-        return $this->belongsTo('App\Client', 'id', 'from');
+        return $this->belongsTo('App\Client', 'from', 'id');
     }
 }

@@ -16,6 +16,6 @@ class Expense extends Model
 
     public function employee()
     {
-        return $this->belongsTo('App\Employee', 'id', 'done_by');
+        return $this->belongsTo('App\Employee', 'done_by', 'id');
     }
 }

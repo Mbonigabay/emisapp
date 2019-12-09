@@ -1,121 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
-    <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card card-stats">
-            <div class="card-body ">
-                <div class="row">
-                    <div class="col-5 col-md-4">
-                        <div class="icon-big text-center icon-warning">
-                            <i class="nc-icon nc-single-02 text-warning"></i>
-                        </div>
-                    </div>
-                    <div class="col-7 col-md-8">
-                        <div class="numbers">
-                            <p class="card-category">Employees</p>
-                            <p class="card-title">10
-                            </p>
-                            <p>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                    <i class="fa fa-refresh"></i> Update Now
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card card-stats">
-            <div class="card-body ">
-                <div class="row">
-                    <div class="col-5 col-md-4">
-                        <div class="icon-big text-center icon-warning">
-                            <i class="nc-icon nc-money-coins text-success"></i>
-                        </div>
-                    </div>
-                    <div class="col-7 col-md-8">
-                        <div class="numbers">
-                            <p class="card-category">Revenue</p>
-                            <p class="card-title">$ 1,345
-                            </p>
-                            <p>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                    <i class="fa fa-calendar-o"></i> Last day
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card card-stats">
-            <div class="card-body ">
-                <div class="row">
-                    <div class="col-5 col-md-4">
-                        <div class="icon-big text-center icon-warning">
-                            <i class="nc-icon nc-money-coins text-danger"></i>
-                        </div>
-                    </div>
-                    <div class="col-7 col-md-8">
-                        <div class="numbers">
-                            <p class="card-category">Expenses</p>
-                            <p class="card-title">2300
-                            </p>
-                            <p>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                    <i class="fa fa-refresh"></i> Update Now
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card card-stats">
-            <div class="card-body ">
-                <div class="row">
-                    <div class="col-5 col-md-4">
-                        <div class="icon-big text-center icon-warning">
-                            <i class="nc-icon nc-tile-56 text-primary"></i>
-                        </div>
-                    </div>
-                    <div class="col-7 col-md-8">
-                        <div class="numbers">
-                            <p class="card-category">Projects</p>
-                            <p class="card-title">3
-                            </p>
-                            <p>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                    <i class="fa fa-refresh"></i> Update now
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+@include('includes.panels')
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -130,110 +16,28 @@
 
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
+                <div class="">
+                    <table class="table" id="expenseTable">
                         <thead class=" text-primary">
                             <tr>
+                                <th>ID</th>
                                 <th>
-                                    Date
+                                    Name
                                 </th>
                                 <th>
                                     Type
                                 </th>
                                 <th>
-                                    Description
+                                    $
                                 </th>
-                                <th class="text-right">
-                                    Balance $
+                                <th>
+                                    Done By
+                                </th>
+                                <th>
+                                    Date
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    22-03-2019 05:30
-                                </td>
-                                <td>
-                                    <a href="./type/show.html" class="link"> Travel</a>
-                                </td>
-                                <td>
-                                    <a href="show.html" class="link"> Kigali to Nyamata</a>
-                                </td>
-                                <td class="text-right">
-                                    $36,738
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    22-03-2019 05:30
-                                </td>
-                                <td>
-                                    Travel
-                                </td>
-                                <td>
-                                    Kigali to Nyamata
-                                </td>
-                                <td class="text-right">
-                                    $36,738
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    22-03-2019 05:30
-                                </td>
-                                <td>
-                                    Travel
-                                </td>
-                                <td>
-                                    Kigali to Nyamata
-                                </td>
-                                <td class="text-right">
-                                    $36,738
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    22-03-2019 05:30
-                                </td>
-                                <td>
-                                    Travel
-                                </td>
-                                <td>
-                                    Kigali to Nyamata
-                                </td>
-                                <td class="text-right">
-                                    $36,738
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    22-03-2019 05:30
-                                </td>
-                                <td>
-                                    Travel
-                                </td>
-                                <td>
-                                    Kigali to Nyamata
-                                </td>
-                                <td class="text-right">
-                                    $36,738
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    22-03-2019 05:30
-                                </td>
-                                <td>
-                                    Travel
-                                </td>
-                                <td>
-                                    Kigali to Nyamata
-                                </td>
-                                <td class="text-right">
-                                    $36,738
-                                </td>
-                            </tr>
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -254,23 +58,29 @@
             </div>
             <div class="modal-body">
 
-                <form _lpchecked="1">
+                    <form method="post" action="{{ action('ExpenseController@store')}}">
+                            {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-6 pr-1">
                             <div class="form-group">
                                 <label>Type</label>
-                                <select class="custom-select" id="inputGroupSelect01">
+                                <select class="custom-select" id="inputGroupSelect01" name="type">
                                     <option selected>Choose...</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="Travel">Travel</option>
+                                    <option value="Equipement">Equipement</option>
+                                    <option value="Misc">Misc</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6 pl-1">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Done By</label>
-                                <input type="text" class="form-control" placeholder="Name">
+                                <select class="custom-select" id="inputGroupSelect01" name="done_by">
+                                    <option selected>Choose...</option>
+                                    @foreach ($employees as $employee)
+                                    <option value="{{$employee->id}}">{{$employee->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -278,12 +88,21 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Date</label>
-                                <input type="date" class="form-control" placeholder="Company" value="Chet">
+                                <input name="date_of_transaction" type="date" class="form-control" placeholder="Company" value="Chet">
                             </div>
                         </div>
 
                     </div>
                     <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Balance</label>
+                                    <input name="balance" type="text" class="form-control" placeholder="Balance ...." >
+                                </div>
+                            </div>
+    
+                        </div>
+                    {{-- <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Upload a file</label>
@@ -295,23 +114,20 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>About Expenses</label>
                                 <textarea
-                                    class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
+                                  name="name"  class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
                             </div>
                         </div>
                     </div>
-
+                    <button type="submit" class="btn btn-primary btn-sm float-right">Add
+                            Expenses</button>
                 </form>
 
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary btn-sm">Add
-                    Expenses</button>
             </div>
         </div>
     </div>

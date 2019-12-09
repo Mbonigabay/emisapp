@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
+use App\Expense;
+use App\Income;
+use App\Project;
 use Illuminate\Http\Request;
+use Validator;
 
 class ExpenseController extends Controller
 {
@@ -13,7 +18,13 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        return view('expense.index');
+        $employees = Employee::all();
+        $nbr_employees = Employee::all()->count();
+        $nbr_projects = Project::all()->count();
+        $sum_expenses = Expense::all()->sum('balance');
+        $sum_incomes = Income::all()->sum('balance');
+
+        return view('expense.index', compact('employees', 'nbr_employees', 'nbr_projects', 'sum_expenses', 'sum_incomes'));
     }
 
     /**
@@ -34,7 +45,30 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'type' => 'required',
+            'balance' => 'required',
+            'done_by' => 'required',
+            'date_of_transaction' => 'required',
+        ]);
+
+        if ($validator->passes()) {
+
+            $expense = Expense::create([
+                'name' => $request->input('name'),
+                'type' => $request->input('type'),
+                'balance' => $request->input('balance'),
+                'done_by' => $request->input('done_by'),
+                'date_of_transaction' => $request->input('date_of_transaction'),
+            ]);
+            if ($expense) {
+                return redirect()->back()
+                    ->with('success', 'Expense saved successful');
+            }
+        }
+        return redirect()->back()
+        ->withErrors($validator);
     }
 
     /**

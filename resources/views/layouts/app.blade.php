@@ -30,12 +30,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/data-tables.css') }}" rel="stylesheet" >
-    {{-- <link href="{{ asset('css/coming-sssoon.css') }}"  rel="stylesheet" > --}}
+    <link href="{{ asset('css/data-tables.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/coming-sssoon.css') }}" rel="stylesheet" > --}}
 
     <!-- Material Kit CSS -->
     <link href="{{ asset('css/paper-dashboard.css') }}" rel="stylesheet" />
-    
+
 
 </head>
 
@@ -44,20 +44,23 @@
         <div class="wrapper">
             @include('includes.sidebar')
             <div class="main-panel">
-                    @include('includes.nav')
-                    <div class="content">
-                            <div class="container-fluid">
-                                    @yield('content')
-                                    @include('includes.footer')
-                            </div>
+                @include('includes.nav')
+                <div class="content">
+                    <div class="container-fluid">
+                        @include('includes.messages')
+                        @yield('content')
+                        @include('includes.footer')
                     </div>
+                </div>
             </div>
         </div>
     </div>
     @yield('scripts')
 
-    <script src="{{ asset('js/template/plugins/chartjs.min.js') }}" ></script>
+    <script src="{{ asset('js/template/plugins/chartjs.min.js') }}"></script>
+    @isset($chart)
     {!! $chart->script() !!}
+    @endisset
 </body>
 
 </html>
