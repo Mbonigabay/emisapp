@@ -7,7 +7,9 @@ use App\Employee;
 use App\Expense;
 use App\Income;
 use App\Project;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class IncomeController extends Controller
@@ -80,7 +82,9 @@ class IncomeController extends Controller
      */
     public function show($id)
     {
-        //
+        $clients = Client::all();
+        $income = Income::where('id', $id)->first();
+        return view('income.show', compact('clients', 'income'));
     }
 
     /**
@@ -103,7 +107,37 @@ class IncomeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $date = Carbon::parse($request->input('date_of_transaction'));
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'type' => 'required',
+            'balance' => 'required',
+            'from' => 'required',
+            'date_of_transaction' => 'required',
+        ]);
+
+        if ($validator->passes()) {
+            if (Auth::check()) {
+                $incomeUpdate = Income::where('id', $id)
+                    ->update([
+                        'name' => $request->input('name'),
+                        'type' => $request->input('type'),
+                        'balance' => $request->input('balance'),
+                        'from' => $request->input('from'),
+                        'date_of_transaction' => $date->format('Y-m-d H:i:s'),
+                    ]);
+
+                if ($incomeUpdate) {
+                    $income = Income::where('id', $id)->first();
+                    return redirect()->route('income.show', ['income_id' => $income->id])
+                        ->with('success', 'Income profile updated successful');
+                }
+            }
+        }
+
+        return back()
+            ->withErrors($validator)
+            ->withInput();
     }
 
     /**

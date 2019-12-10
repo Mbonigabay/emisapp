@@ -6,7 +6,9 @@ use App\Employee;
 use App\Expense;
 use App\Income;
 use App\Project;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class ExpenseController extends Controller
@@ -68,7 +70,7 @@ class ExpenseController extends Controller
             }
         }
         return redirect()->back()
-        ->withErrors($validator);
+            ->withErrors($validator);
     }
 
     /**
@@ -79,7 +81,11 @@ class ExpenseController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $employees = Employee::all();
+        $expense = Expense::where('id', $id)->first();
+        
+        return view('expense.show', compact('expense', 'employees'));
     }
 
     /**
@@ -102,7 +108,37 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $date = Carbon::parse($request->input('date_of_transaction'));
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'type' => 'required',
+            'balance' => 'required',
+            'done_by' => 'required',
+            'date_of_transaction' => 'required',
+        ]);
+
+        if ($validator->passes()) {
+            if (Auth::check()) {
+                $expenseUpdate = Expense::where('id', $id)
+                    ->update([
+                        'name' => $request->input('name'),
+                        'type' => $request->input('type'),
+                        'balance' => $request->input('balance'),
+                        'done_by' => $request->input('done_by'),
+                        'date_of_transaction' => $date->format('Y-m-d H:i:s'),
+                    ]);
+
+                if ($expenseUpdate) {
+                    $expense = Expense::where('id', $id)->first();
+                    return redirect()->route('expense.show', ['expense_id' => $expense->id])
+                        ->with('success', 'Expense profile updated successful');
+                }
+            }
+        }
+
+        return back()
+            ->withErrors($validator)
+            ->withInput();
     }
 
     /**

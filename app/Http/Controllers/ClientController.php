@@ -8,6 +8,7 @@ use App\Expense;
 use App\Income;
 use App\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class ClientController extends Controller
@@ -54,20 +55,20 @@ class ClientController extends Controller
 
         if ($validator->passes()) {
 
-                $client = Client::create([
-                    'name' => $request->input('name'),
-                    'email' => $request->input('email'),
-                    'address' => $request->input('address'),
-                    'tel_no' => $request->input('telNo'),
-                ]);
-                if ($client) {
-                    return redirect()->back()
-            ->with('success', 'Client saved successful');
-                }
-
+            $client = Client::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'address' => $request->input('address'),
+                'tel_no' => $request->input('telNo'),
+            ]);
+            if ($client) {
                 return redirect()->back()
-                ->with('error', 'Error');
+                    ->with('success', 'Client saved successful');
             }
+
+            return redirect()->back()
+                ->with('error', 'Error');
+        }
     }
 
     /**
@@ -78,7 +79,9 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $client = Client::where('id', $id)->first();
+        return view('client.show', compact('client'));
     }
 
     /**
@@ -101,7 +104,34 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'telNo' => 'required',
+        ]);
+
+        if ($validator->passes()) {
+            if (Auth::check()) {
+                $clientUpdate = Client::where('id', $id)
+                    ->update([
+                        'name' => $request->input('name'),
+                        'email' => $request->input('email'),
+                        'address' => $request->input('address'),
+                        'tel_no' => $request->input('telNo'),
+                    ]);
+
+                if ($clientUpdate) {
+                    $client = Client::where('id', $id)->first();
+                    return redirect()->route('client.show', ['client_id' => $client->id])
+                        ->with('success', 'Client profile updated successful');
+                }
+            }
+        }
+
+        return back()
+            ->withErrors($validator)
+            ->withInput();
     }
 
     /**

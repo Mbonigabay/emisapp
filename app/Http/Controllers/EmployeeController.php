@@ -8,6 +8,7 @@ use App\Income;
 use App\Project;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -55,22 +56,22 @@ class EmployeeController extends Controller
 
         if ($validator->passes()) {
 
-                $employee = Employee::create([
-                    'name' => $request->input('name'),
-                    'email' => $request->input('email'),
-                    'address' => $request->input('address'),
-                    'tel_no' => $request->input('telNo'),
-                    'nid' => $request->input('nid'),
-                    'position' => $request->input('position'),
-                ]);
-                if ($employee) {
-                    return redirect()->back()
-            ->with('success', 'Employee saved successful');
-                }
-
+            $employee = Employee::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'address' => $request->input('address'),
+                'tel_no' => $request->input('telNo'),
+                'nid' => $request->input('nid'),
+                'position' => $request->input('position'),
+            ]);
+            if ($employee) {
                 return redirect()->back()
-                ->with('error', 'Error');
+                    ->with('success', 'Employee saved successful');
             }
+
+            return redirect()->back()
+                ->with('error', 'Error');
+        }
     }
 
     /**
@@ -81,7 +82,9 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $employee = Employee::where('id', $id)->first();
+        return view('employee.show', compact('employee'));
     }
 
     /**
@@ -104,7 +107,38 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'telNo' => 'required',
+            'nid' => 'required',
+            'position' => 'required',
+        ]);
+
+        if ($validator->passes()) {
+            if (Auth::check()) {
+                $employeeUpdate = Employee::where('id', $id)
+                    ->update([
+                        'name' => $request->input('name'),
+                        'email' => $request->input('email'),
+                        'address' => $request->input('address'),
+                        'tel_no' => $request->input('telNo'),
+                        'nid' => $request->input('nid'),
+                        'position' => $request->input('position'),
+                    ]);
+
+                if ($employeeUpdate) {
+                    $employee = Employee::where('id', $id)->first();
+                    return redirect()->route('employee.show', ['employee_id' => $employee->id])
+                        ->with('success', 'Employe profile updated successful');
+                }
+            }
+        }
+
+        return back()
+            ->withErrors($validator)
+            ->withInput();
     }
 
     /**

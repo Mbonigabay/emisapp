@@ -45,7 +45,7 @@
                                 <th>
                                     Revenue
                                 </th>
-                                <th class="text-right">
+                                <th>
                                     $
                                 </th>
 

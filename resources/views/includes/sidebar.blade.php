@@ -34,24 +34,13 @@
                 </a>
             </li>
 
-            <li class="{{Request::is('project*') ? 'active' : ''}}">
-                <a href="{{action('ProjectController@index')}}">
-                    <i class="nc-icon nc-tile-56"></i>
-                    <p>Projects</p>
-                </a>
-            </li>
             <li class="{{Request::is('employee*') ? 'active' : ''}}">
                 <a href="{{action('EmployeeController@index')}}">
                     <i class="nc-icon nc-badge"></i>
                     <p>Employees</p>
                 </a>
             </li>
-            <li class="{{Request::is('payroll*') ? 'active' : ''}}">
-                <a href="{{action('PayRollController@index')}}">
-                    <i class="nc-icon nc-bank"></i>
-                    <p>Payroll</p>
-                </a>
-            </li>
+            
             <li class="{{Request::is('client*') ? 'active' : ''}}">
                 <a href="{{action('ClientController@index')}}">
                     <i class="nc-icon nc-single-02"></i>
@@ -59,6 +48,19 @@
                 </a>
             </li>
 
+            {{-- <li class="{{Request::is('project*') ? 'active' : ''}}">
+                <a href="{{action('ProjectController@index')}}">
+                    <i class="nc-icon nc-tile-56"></i>
+                    <p>Projects</p>
+                </a>
+            </li>
+
+            <li class="{{Request::is('payroll*') ? 'active' : ''}}">
+                <a href="{{action('PayRollController@index')}}">
+                    <i class="nc-icon nc-bank"></i>
+                    <p>Payroll</p>
+                </a>
+            </li> --}}
         </ul>
     </div>
 </div>

@@ -11368,3 +11368,8 @@ a.text-dark:focus {
   color: black;
 }
 
+a {
+  color: black;
+  text-decoration: none;
+}
+

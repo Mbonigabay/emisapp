@@ -34,14 +34,26 @@ class HomeController extends Controller
         $sum_expenses = Expense::all()->sum('balance');
         $sum_incomes = Income::all()->sum('balance');
 
-
-        $today_users = Employee::whereDate('created_at', today())->count();
-        $yesterday_users = Employee::whereDate('created_at', today()->subDays(1))->count();
-        $users_2_days_ago = Employee::whereDate('created_at', today()->subDays(2))->count();
-
+        $data = Expense::all();
+        $chart_data = [];
+        foreach ($data as $item) {
+            $chart_data['done_by'][] = $item['done_by'];
+            $chart_data['balance'][] = $item['balance'];
+        }
         $chart = new LatestEmployee;
-        $chart->labels(['2 days ago', 'Yesterday', 'Today']);
-        $chart->dataset('My dataset', 'bar', [$users_2_days_ago, $yesterday_users, $today_users])->color('#000');
+        $chart->labels($chart_data['done_by']);
+        $chart->dataset('Best Players', 'bar', $chart_data['balance']);
+        // $chart->labels($data->keys());
+        // $chart->dataset('My dataset', 'line', $data->values());
+
+
+        // $today_users = Employee::whereDate('created_at', today())->count();
+        // $yesterday_users = Employee::whereDate('created_at', today()->subDays(1))->count();
+        // $users_2_days_ago = Employee::whereDate('created_at', today()->subDays(2))->count();
+
+        // $chart = new LatestEmployee;
+        // $chart->labels(['2 days ago', 'Yesterday', 'Today']);
+        // $chart->dataset('My dataset', 'bar', [$users_2_days_ago, $yesterday_users, $today_users])->color('#000');
         // $chart->options(['responsive'=> false], $overwrite = true);
         // $chart->width(10);
         // $chart->height(100);
